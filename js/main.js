@@ -30,8 +30,8 @@
 				if(this.rightNode == undefined)
 				{
 					this.rightNode = new Node(pElement);
-					nodes.update({id: pElement, label: pElement.toString(), size: 200 });
-					edges.update({from: this.element, to: pElement});
+					// nodes.update({id: pElement, label: pElement.toString(), size: 200 });
+					// edges.update({from: this.element, to: pElement});
 					rta = true;
 				}
 				else
@@ -45,8 +45,8 @@
 				if(this.leftNode == undefined)
 				{
 					this.leftNode = new Node(pElement);
-					nodes.update({id: pElement, label: pElement.toString(), size: 200 });
-					edges.update({from: this.element, to: pElement});
+					// nodes.update({id: pElement, label: pElement.toString(), size: 200 });
+					// edges.update({from: this.element, to: pElement});
 					rta = true;
 
 
@@ -94,7 +94,7 @@
 			
 			if(this.rightNode != undefined)
 			{
-				parentNode = this;
+				var parentNode = this;
 				this.rightNode.inorderListing(pList);
 			}
 		}
@@ -124,8 +124,8 @@
 			{
 				this.root = new Node(pElement);
 				this.count++;
-				nodes.update({id: this.root.getElement(), label: this.root.getElement().toString(), size: 200 });
-				edges.update({});
+				// nodes.update({id: this.root.getElement(), label: this.root.getElement().toString(), size: 200 });
+				// edges.update({});
 			}
 			else
 			{
@@ -146,8 +146,50 @@
 		{
 			if(this.root == pElement)
 			{
-				nodes.update({size: 200, color: {background: '#0BB31C'} });
+				// nodes.update({size: 200, color: {background: '#0BB31C'} });
+				// edges.update({});
+			}
+		}
+
+		upDownTraverse()
+		{
+			
+			if (this.root != undefined)
+			{
+				nodes.update({id: this.root.getElement(), label: this.root.getElement().toString(), size: 200 });
 				edges.update({});
+				this.upDownUpdate(this.root);
+				
+			}
+		}
+
+		upDownUpdate(node)
+		{
+			// alert(node.getElement());
+			if(node.leftNode != undefined || node.rightNode != undefined)
+			{
+				if(node.leftNode == undefined)
+				{
+					nodes.update({id: -node.getElement(), label: "", size: 200, color:"white"});
+					edges.update({from: node.getElement(), to: -node.getElement(), color:{color:"white"}});
+					// nodes.update({})
+				}else
+				{
+					nodes.update({id: node.leftNode.getElement(), label: node.leftNode.getElement().toString(), size: 200 });
+					edges.update({from: node.getElement(), to: node.leftNode.getElement()});
+					this.upDownUpdate(node.leftNode);
+				}
+
+				if(node.rightNode == undefined)
+				{
+					nodes.update({id: -node.getElement(), label: "", size: 200, color:"white"});
+					edges.update({from: node.getElement(), to: -node.getElement(), color:{color:"white"}});
+				}else
+				{
+					nodes.update({id: node.rightNode.getElement(), label: node.rightNode.getElement().toString(), size: 200 });
+					edges.update({from: node.getElement(), to: node.rightNode.getElement()});
+					this.upDownUpdate(node.rightNode);
+				}
 			}
 		}
 
@@ -166,6 +208,14 @@
 	}
 
 	var BST = new Tree();
+	BST.insertElement(20);
+	BST.insertElement(30);
+	BST.insertElement(35);
+	BST.insertElement(25);
+	// var list = BST.inorderList();
+	// console.log(list);
+	// BST.insert(insertElement);
+
 	var nodes = new vis.DataSet([]);
 	var edges = new vis.DataSet([]);
 
@@ -210,6 +260,11 @@
 	   	var numText = prompt("Please enter a number: ", "0");
 	   	var pElement = parseInt(numText);
 	   	BST.searchElement(pElement);
+	}
+
+	function execute()
+	{
+		BST.upDownTraverse();
 	}
 
 	function reset()
@@ -331,6 +386,7 @@
 		  return code;
 		};
 
+
 		/*---------------Increase Count-------------------------------*/
 		Blockly.Blocks['increase_count'] = {
 		  init: function() {
@@ -386,6 +442,28 @@
 		  var code = 'BST.root';
 		  // TODO: Change ORDER_NONE to the correct strength.
 		  return [code, Blockly.JavaScript.ORDER_NONE];
+		};
+
+		/*---------------Get Node-------------------------------*/
+		Blockly.Blocks['get_node'] = {
+		  init: function() {
+		    this.appendValueInput("pNode")
+		        .setCheck("Node")
+		        .appendField("Get Node");
+		    this.setOutput(true, "Number");
+		    this.setColour(230);
+		 this.setTooltip("");
+		 this.setHelpUrl("");
+		  }
+		};
+
+		Blockly.JavaScript['get_node'] = function(block) {
+		  // var pElement = Blockly.JavaScript.valueToCode(block, 'pElement', Blockly.JavaScript.ORDER_ATOMIC);
+		  // // TODO: Assemble JavaScript into code variable.
+		  // var code = 'BST.root = new Node('+pElement+');\n'+ 
+		  // 'nodes.update({id: BST.root.element, label: BST.root.element.toString(), size: 200 });\n'+
+		  // 'edges.update({});\n';
+		  return 1;
 		};
 
 
