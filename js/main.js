@@ -289,6 +289,24 @@
 		  // TODO: Change ORDER_NONE to the correct strength.
 		  return [code, Blockly.JavaScript.ORDER_NONE];
 		};
+	/*---------------Root Exists-------------------------------*/
+	Blockly.Blocks['root_not_exists'] = {
+		init: function() {
+			this.appendDummyInput()
+				.appendField("Root does not exists?");
+			this.setInputsInline(false);
+			this.setOutput(true, "Boolean");
+			this.setColour(15);
+			this.setTooltip('');
+		}
+	};
+
+	Blockly.JavaScript['root_exists'] = function(block) {
+		// TODO: Assemble JavaScript into code variable.
+		var code = 'BST.root == undefined';
+		// TODO: Change ORDER_NONE to the correct strength.
+		return [code, Blockly.JavaScript.ORDER_NONE];
+	};
 
 		/*---------------Create Root-------------------------------*/
 		Blockly.Blocks['new_root'] = {
@@ -587,3 +605,31 @@
 		  // TODO: Change ORDER_NONE to the correct strength.
 		  return [code, Blockly.JavaScript.ORDER_NONE];
 		};
+	/*---------------Change Color Of Node-------------------------------*/
+	Blockly.Blocks['change_color_of_node'] = {
+		init: function() {
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.appendValueInput("node")
+				.setCheck(null)
+				.setAlign(Blockly.ALIGN_RIGHT)
+				.appendField("Change the color of this node:");
+			this.setColour(120);
+			this.setTooltip("");
+			this.setHelpUrl("");
+		}
+	};
+
+	/*
+	Blockly.JavaScript['change_color_of_node'] = function(block) {
+
+		var value_element = Blockly.JavaScript.valueToCode(block, 'node', Blockly.JavaScript.ORDER_ATOMIC);
+		// TODO: Assemble JavaScript into code variable.
+		var element = parseInt(value_element, 10);
+		var newNode = new Node(element);
+		var code = 'return ' + newNode;
+		// TODO: Change ORDER_NONE to the correct strength.
+		return [code, Blockly.JavaScript.ORDER_NONE];
+
+	};
+	*/
