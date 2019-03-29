@@ -59,6 +59,30 @@
 			return rta;
 		}
 
+		searchElement(pElement)
+		{
+			var rta = false;
+			if(pElement == this.element)
+			{
+				rta = true;
+			}
+			else if(pElement < this.element)
+			{
+				if(this.leftNode != undefined)
+				{
+					rta = this.leftNode.searchElement(pElement);
+				}
+			}
+			else
+			{
+				if(this.rightNode != undefined)
+				{
+					rta = this.rightNode.searchElement(pElement);
+				}
+			}
+			return rta;
+		}
+
 		inorderListing(pList)
 		{
 			if(this.leftNode != undefined)
@@ -118,6 +142,15 @@
 			}
 		}
 
+		searchElement(pElement)
+		{
+			if(this.root == pElement)
+			{
+				nodes.update({size: 200, color: {background: '#0BB31C'} });
+				edges.update({});
+			}
+		}
+
 		inorderListing()
 		{
 			var inorderList = [];
@@ -170,6 +203,13 @@
 	   	var numText = prompt("Please enter a number: ", "0");
 	   	var pElement = parseInt(numText);
 	   	BST.insertElement(pElement);
+	}
+
+	function search()
+	{
+	   	var numText = prompt("Please enter a number: ", "0");
+	   	var pElement = parseInt(numText);
+	   	BST.searchElement(pElement);
 	}
 
 	function reset()
