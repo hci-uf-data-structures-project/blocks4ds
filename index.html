@@ -55,6 +55,11 @@
 
 		<xml id="toolboxTree" style="display: none">
 			 <category name="Conditionals">
+			 	<block type="math_number"></block>
+			 	<block type="find_target_node"></block>
+			 	<block type="get_root"></block>
+			 	<block type="insertIntegration"></block>
+
 			 	<category name="Operations">
 			 		<block type="controls_if"></block>
 		  			<block type="logic_compare"></block>
@@ -64,12 +69,16 @@
 					<block type="no_block"></block>
 				</category>
 			</category>
-			<category name="Variables">
-				<block type="variables_set">
-					<field name="VAR" id="4A4ev2ODuJzFUOA(Wsy2" variabletype="">Substitute</field>
-				</block>
+
+			<category name="Variables"  custom="VARIABLE">
+				<!-- <block type="variables_set"> -->
+					<!-- <field name="VAR" id="4A4ev2ODuJzFUOA(Wsy2" variabletype="">returnedNode</field> -->
+				<!-- </block> -->
+
 			</category>
+
 			<category name="Input and Output">
+				
 				<category name="Numeric">
 					<block type="math_number"></block>
 					<block type="math_arithmetic"></block>
@@ -111,7 +120,7 @@
 					    </mutation>
 			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
 					</block>
-					<block editable="false" type="procedures_defreturn">
+					<block editable="false" type="procedures_defnoreturn">
 						<field name="NAME">SEARCH</field>
 						<mutation>
 					      <arg name="element" varid="elementToSearch"></arg>
@@ -130,11 +139,20 @@
 					<block type="node_has_right"></block>
 					<block type="node_has_left"></block>
 					<block type="create_node"></block>
+					<block type="find_target_node"></block>
 				</category>
 				
 				<category name="Functions on Nodes">
 					<block editable="false" type="procedures_defnoreturn">
 						<field name="NAME">insertElementToBlock</field>
+						<mutation>
+						  <arg name="node" varid="currentNode"></arg>
+					      <arg name="element" varid="newElement"></arg>
+					    </mutation>
+			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
+					</block>
+					<block editable="false" type="procedures_defnoreturn">
+						<field name="NAME">searchElementInBlock</field>
 						<mutation>
 						  <arg name="node" varid="currentNode"></arg>
 					      <arg name="element" varid="newElement"></arg>
@@ -148,27 +166,27 @@
 						</mutation>
 						<comment pinned="false" h="80" w="160">Describe this function...</comment>
 					</block>
-					<block editable="false" type="procedures_defreturn">
-						<field name="NAME">searchElementInBlock</field>
-						<mutation>
-						  <arg name="node" varid="currentNode"></arg>
-					      <arg name="element" varid="newElement"></arg>
-					    </mutation>
-			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
-					</block>
 				</category>
+				
 			</category>
+				<category name="Integrated Functions">
+					<block type="insertIntegration"></block>
+					<block type="searchIntegration"></block>
+					<block type="deleteIntegration"></block>
+				</category>
 		</xml>
 		</div>
 	</body>
 
 	<script>
+
 	   var workspace = Blockly.inject('blocklyDivTree', {toolbox: document.getElementById('toolboxTree')});
 	    var executeCode = function()
 		{
 	   		var code = Blockly.JavaScript.workspaceToCode(workspace);
-	   		execute();
+	   		// alert(code);
 	   		eval(code);
+	   		execute();
 		}
 	</script>
 	<script src="./js/main.js"></script>

@@ -5,6 +5,7 @@
 			this.element = pElement;
 			this.rightNode = undefined;
 			this.leftNode = undefined;
+			this.isSearch = false;
 		}
 
 		getElement()
@@ -22,81 +23,10 @@
 			return this.leftNode;
 		}
 
-		insertElement(pElement)
+		setIsSearch(isSearch)
 		{
-			var rta = false;
-			if(pElement > this.element)
-			{
-				if(this.rightNode == undefined)
-				{
-					this.rightNode = new Node(pElement);
-					// nodes.update({id: pElement, label: pElement.toString(), size: 200 });
-					// edges.update({from: this.element, to: pElement});
-					rta = true;
-				}
-				else
-				{
-					rta = this.rightNode.insertElement(pElement);
-				}
-			}
-
-			else if(pElement < this.element)
-			{
-				if(this.leftNode == undefined)
-				{
-					this.leftNode = new Node(pElement);
-					// nodes.update({id: pElement, label: pElement.toString(), size: 200 });
-					// edges.update({from: this.element, to: pElement});
-					rta = true;
-
-
-				}
-				else
-				{
-					rta = this.leftNode.insertElement(pElement);
-				}
-			}
-			return rta;
-		}
-
-		searchElement(pElement)
-		{
-			var rta = false;
-			if(pElement == this.element)
-			{
-				rta = true;
-			}
-			else if(pElement < this.element)
-			{
-				if(this.leftNode != undefined)
-				{
-					rta = this.leftNode.searchElement(pElement);
-				}
-			}
-			else
-			{
-				if(this.rightNode != undefined)
-				{
-					rta = this.rightNode.searchElement(pElement);
-				}
-			}
-			return rta;
-		}
-
-		inorderListing(pList)
-		{
-			if(this.leftNode != undefined)
-			{
-				this.leftNode.inorderListing(pList);
-			}
-
-			pList.push(this.element);
-			
-			if(this.rightNode != undefined)
-			{
-				var parentNode = this;
-				this.rightNode.inorderListing(pList);
-			}
+			this.isSearch = isSearch;
+			return this.isSearched;
 		}
 	}
 
@@ -106,6 +36,7 @@
 		{
 			this.root = undefined;
 			this.count = 0;
+			this.deleted = false;
 		}
 
 		getCount()
@@ -120,6 +51,7 @@
 
 		insertElement(pElement)
 		{
+
 			if(this.root == undefined)
 			{
 				this.root = new Node(pElement);
@@ -129,39 +61,163 @@
 			}
 			else
 			{
-				var rta = this.root.insertElement(pElement);
-				if(rta == true)
+				var rta = this.insertHelper(pElement, this.root);
+				if(rta != undefined)
 				{
 					this.count++;
 					//alert("The element was inserted successfully");
 				}
-				else
-				{
-					//alert("The element to insert already xeists in the Binary Search Tree!");
-				}
+
+				return rta
 			}
+
+			return undefined;
 		}
 
 		searchElement(pElement)
 		{
-			if(this.root == pElement)
-			{
-				// nodes.update({size: 200, color: {background: '#0BB31C'} });
-				// edges.update({});
+			if(this.root != undefined){
+				return this.searchHelper(pElement, this.root);
 			}
 		}
 
-		upDownTraverse()
+		deleteElement(pElement)
+		{
+			this.root = this.deleteHelper(pElement, this.root);
+			if(this.deleted){
+				this.deleted = false;
+				this.count--;
+			}
+		}
+		buildVis()
 		{
 			
 			if (this.root != undefined)
 			{
-				nodes.update({id: this.root.getElement(), label: this.root.getElement().toString(), size: 200 });
-				edges.update({});
+				if(this.root.isSearched)
+				{
+					nodes.update({id: this.root.getElement(), label: this.root.getElement().toString(), size: 200 , color:"#f44242"});
+					edges.update({});
+				}else
+				{
+					nodes.update({id: this.root.getElement(), label: this.root.getElement().toString(), size: 200});
+					edges.update({});
+				}
 				this.upDownUpdate(this.root);
 				
 			}
 		}
+
+		inorderListing()
+		{
+			var inorderList = [];
+			
+			if(this.root != undefined)
+			{
+				this.inorderListingHelp(inorderList, this.root);
+			}
+			
+			return inorderList;
+		}
+
+		insertHelper(pElement, node)
+		{
+
+			if(pElement > node.element)
+			{
+				if(node.rightNode == undefined)
+				{
+					node.rightNode = new Node(pElement);
+					return node.rightNode;
+				}
+				else
+				{
+					return this.insertHelper(pElement, node.rightNode);
+				}
+			}
+
+			else if(pElement < node.element)
+			{
+				if(node.leftNode == undefined)
+				{
+					node.leftNode = new Node(pElement);
+					return node.leftNode;
+				}
+				else
+				{
+					return this.insertHelper(pElement, node.leftNode);
+				}
+			}
+			return undefined;
+		}
+
+		searchHelper(pElement, node)
+		{
+			
+			if(pElement == node.element)
+			{
+				node.isSearched = true;
+				return node;
+			}
+			else if(pElement < node.element)
+			{
+				if(node.leftNode != undefined)
+				{
+					return this.searchHelper(pElement, node.leftNode);
+				}
+			}
+			else
+			{
+				if(node.rightNode != undefined)
+				{
+					return this.searchHelper(pElement, node.rightNode);
+				}
+			}
+			return undefined;
+		}
+
+		deleteHelper(pElement, node)
+		{
+			if (node == null)  return node; 
+	  
+	        /* Otherwise, recur down the tree */
+	        if (pElement < node.element) 
+	            node.leftNode = this.deleteHelper(node.leftNode, pElement); 
+	        else if (pElement > node.element) 
+	            node.rightNode = this.deleteHelper(node.rightNode, pElement); 
+	  
+	        // if key is same as root's key, then This is the node 
+	        // to be deleted 
+	        else
+	        { 
+	        	this.deleted = true;
+	            // node with only one child or no child 
+	            if (node.leftNode == null) 
+	                return node.rightNode; 
+	            else if (node.rightNode == null) 
+	                return node.leftNode; 
+	  
+	            // node with two children: Get the inorder successor (smallest 
+	            // in the right subtree) 
+	            node.element = minValue(node.rightNode); 
+	  
+	            // Delete the inorder successor 
+	            node.rightNode = deleteHelper(node.rightNode, root.element); 
+	        } 
+	  
+	        return node; 
+		}
+
+		minValue(node)
+		{
+			var minv = node.element; 
+	        while (node.leftNode != null) 
+	        { 
+	            minv = node.leftNode.element; 
+	            node = node.leftNode; 
+	        } 
+	        return minv; 
+		}	
 
 		upDownUpdate(node)
 		{
@@ -175,8 +231,16 @@
 					// nodes.update({})
 				}else
 				{
-					nodes.update({id: node.leftNode.getElement(), label: node.leftNode.getElement().toString(), size: 200 });
-					edges.update({from: node.getElement(), to: node.leftNode.getElement()});
+					if(node.leftNode.isSearched)
+					{
+						nodes.update({id: node.leftNode.getElement(), label: node.leftNode.getElement().toString(), size: 200, color:"#f44242"});
+						edges.update({from: node.getElement(), to: node.leftNode.getElement(), color:{color:"#97c2fc"}});
+					}else
+					{
+						nodes.update({id: node.leftNode.getElement(), label: node.leftNode.getElement().toString(), size: 200});
+						edges.update({from: node.getElement(), to: node.leftNode.getElement(), color:{color:"#97c2fc"}});
+					}
+					
 					this.upDownUpdate(node.leftNode);
 				}
 
@@ -186,35 +250,37 @@
 					edges.update({from: node.getElement(), to: -node.getElement(), color:{color:"white"}});
 				}else
 				{
-					nodes.update({id: node.rightNode.getElement(), label: node.rightNode.getElement().toString(), size: 200 });
-					edges.update({from: node.getElement(), to: node.rightNode.getElement()});
+					if(node.rightNode.isSearched)
+					{
+						nodes.update({id: node.rightNode.getElement(), label: node.rightNode.getElement().toString(), size: 200 , color:"#f44242"});
+						edges.update({from: node.getElement(), to: node.rightNode.getElement(), color:{color:"#97c2fc"}});
+					}else
+					{
+						nodes.update({id: node.rightNode.getElement(), label: node.rightNode.getElement().toString(), size: 200 });
+						edges.update({from: node.getElement(), to: node.rightNode.getElement(), color:{color:"#97c2fc"}});
+					}
 					this.upDownUpdate(node.rightNode);
 				}
 			}
 		}
 
-		inorderListing()
+		inorderListingHelp(pList, node)
 		{
-			var inorderList = [];
-			
-			if(this.root != undefined)
+			if(node.leftNode != undefined)
 			{
-				this.root.inorderListing(inorderList);
+				this.inorderListingHelp(pList, node.leftNode);
 			}
-			
-			return inorderList;
-		}
 
+			pList.push(node.element);
+			
+			if(node.rightNode != undefined)
+			{
+				this.inorderListingHelp(pList, node.rightNode);
+			}
+		}
 	}
 
 	var BST = new Tree();
-	BST.insertElement(20);
-	BST.insertElement(30);
-	BST.insertElement(35);
-	BST.insertElement(25);
-	// var list = BST.inorderList();
-	// console.log(list);
-	// BST.insert(insertElement);
 
 	var nodes = new vis.DataSet([]);
 	var edges = new vis.DataSet([]);
@@ -248,23 +314,31 @@
 	// initialize your network!
 	var network = new vis.Network(container, data, options);
 
-	function insert()
-	{
-	   	var numText = prompt("Please enter a number: ", "0");
-	   	var pElement = parseInt(numText);
-	   	BST.insertElement(pElement);
-	}
+	// function insert()
+	// {
+	//    	var numText = prompt("Please enter a number: ", "0");
+	//    	var pElement = parseInt(numText);
+	//    	BST.insertElement(pElement);
+	// }
 
-	function search()
-	{
-	   	var numText = prompt("Please enter a number: ", "0");
-	   	var pElement = parseInt(numText);
-	   	BST.searchElement(pElement);
-	}
+	// function search()
+	// {
+	//    	var numText = prompt("Please enter a number: ", "0");
+	//    	var pElement = parseInt(numText);
+	//    	BST.searchElement(pElement);
+	// }
 
 	function execute()
 	{
-		BST.upDownTraverse();
+		BST.buildVis();
+
+		BST = new Tree();
+		nodes = new vis.DataSet([]);
+		edges = new vis.DataSet([]);
+		data = {
+		    nodes: nodes,
+		    edges: edges
+		};
 	}
 
 	function reset()
@@ -362,6 +436,66 @@
 		// TODO: Change ORDER_NONE to the correct strength.
 		return [code, Blockly.JavaScript.ORDER_NONE];
 	};
+		/*---------------Insert Integration------------------------*/
+		Blockly.Blocks['insertIntegration'] = {
+		  init: function() {
+		    this.appendValueInput("pElement")
+		        .setCheck("Number")
+		        .appendField("Insert Element");
+		    this.setInputsInline(false);
+		    this.setPreviousStatement(true, null);
+		    this.setNextStatement(true, null);
+		    this.setColour(345);
+		    this.setTooltip('');
+		  }
+		};
+
+		Blockly.JavaScript['insertIntegration'] = function(block) {
+			var pElement = Blockly.JavaScript.valueToCode(block, 'pElement', Blockly.JavaScript.ORDER_ATOMIC);
+		 	var code = 'BST.insertElement(' + pElement +');\n';
+			return code;
+		};
+
+		/*---------------Search Integration------------------------*/
+		Blockly.Blocks['searchIntegration'] = {
+		  init: function() {
+		    this.appendValueInput("pElement")
+		        .setCheck("Number")
+		        .appendField("Search Element");
+		    this.setInputsInline(false);
+		    this.setPreviousStatement(true, null);
+		    this.setNextStatement(true, null);
+		    this.setColour(345);
+		    this.setTooltip('');
+		  }
+		};
+
+		Blockly.JavaScript['searchIntegration'] = function(block) {
+			var pElement = Blockly.JavaScript.valueToCode(block, 'pElement', Blockly.JavaScript.ORDER_ATOMIC);
+		 	var code = 'BST.searchElement(' + pElement +');\n';
+			return code;
+		};
+
+		/*---------------Delete Integration------------------------*/
+		Blockly.Blocks['deleteIntegration'] = {
+		  init: function() {
+		    this.appendValueInput("pElement")
+		        .setCheck("Number")
+		        .appendField("Remove Element");
+		    this.setInputsInline(false);
+		    this.setPreviousStatement(true, null);
+		    this.setNextStatement(true, null);
+		    this.setColour(345);
+		    this.setTooltip('');
+		  }
+		};
+
+		Blockly.JavaScript['deleteIntegration'] = function(block) {
+		  var pElement = Blockly.JavaScript.valueToCode(block, 'pElement', Blockly.JavaScript.ORDER_ATOMIC);
+		 	var code = 'BST.deleteElement(' + pElement +');\n';
+			return code;
+		};
+
 
 		/*---------------Create Root-------------------------------*/
 		Blockly.Blocks['new_root'] = {
@@ -682,6 +816,30 @@
 		  var code = 'return ' + newNode;
 		  // TODO: Change ORDER_NONE to the correct strength.
 		  return [code, Blockly.JavaScript.ORDER_NONE];
+		};
+
+		/*---------------find_target_node-------------------------------*/
+
+		Blockly.Blocks['find_target_node'] = {
+		  init: function() {
+		    this.appendValueInput("node")
+		        .setCheck("Node")
+		        .appendField("Found and Mark");
+		    this.setInputsInline(false);
+		    this.setPreviousStatement(true, null);
+		    this.setNextStatement(true, null);
+		    this.setColour(200);
+		    this.setTooltip('');
+		  }
+		};
+
+		Blockly.JavaScript['find_target_node'] = function(block) {
+		  var node = Blockly.JavaScript.valueToCode(block, 'node', Blockly.JavaScript.ORDER_ATOMIC);
+
+		  var code = node + ".setIsSearch("+ true +")";
+		  console.log(node.isSearched);
+
+		  return code
 		};
 	/*---------------Change Color Of Node-------------------------------*/
 	Blockly.Blocks['change_color_of_node'] = {
