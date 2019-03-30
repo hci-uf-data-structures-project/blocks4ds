@@ -1,23 +1,31 @@
+	
+	//MVP 1.0
 	class Node
 	{
+		//MVP 1.0
 		constructor(pElement)
 		{
 			this.element = pElement;
 			this.rightNode = undefined;
 			this.leftNode = undefined;
+
+			//MVP 2.0
 			this.isSearch = false;
 		}
 
+		//MVP 1.0
 		getElement()
 		{
 			return this.element;
 		}
 		
+		//MVP 1.0
 		getRightNode()
 		{
 			return this.rightNode;
 		}
 
+		//MVP 1.0
 		getLeftNode()
 		{
 			return this.leftNode;
@@ -25,25 +33,32 @@
 
 	}
 
+	//MVP 1.0
 	class Tree
 	{
+		//MVP 1.0
 		constructor()
 		{
 			this.root = undefined;
 			this.count = 0;
+
+			//MVP 2.0
 			this.deleted = false;
 		}
 
+		//MVP 1.0
 		getCount()
 		{
 			return this.count;
 		}
 
+		//MVP 1.0
 		getRoot()
 		{
 			return this.root;
 		}
 
+		//MVP 1.0
 		insertElement(pElement)
 		{
 
@@ -51,12 +66,17 @@
 			{
 				this.root = new Node(pElement);
 				this.count++;
+
+				//MVP 2.0 - Commented for second MVP.
 				// nodes.update({id: this.root.getElement(), label: this.root.getElement().toString(), size: 200 });
 				// edges.update({});
 			}
 			else
 			{
+				//MVP 2.0
 				var rta = this.insertHelper(pElement, this.root);
+
+				//MVP 1.0
 				if(rta != undefined)
 				{
 					this.count++;
@@ -69,6 +89,7 @@
 			return undefined;
 		}
 
+		//MVP 2.0
 		searchElement(pElement)
 		{
 			if(this.root != undefined){
@@ -76,6 +97,7 @@
 			}
 		}
 
+		//MVP 2.0
 		deleteElement(pElement)
 		{
 			this.root = this.deleteHelper(pElement, this.root);
@@ -84,9 +106,10 @@
 				this.count--;
 			}
 		}
+
+		//MVP 2.0
 		buildVis()
 		{
-			
 			if (this.root != undefined)
 			{
 				if(this.root.isSearched)
@@ -103,6 +126,7 @@
 			}
 		}
 
+		//MVP 1.0
 		inorderListing()
 		{
 			var inorderList = [];
@@ -115,6 +139,7 @@
 			return inorderList;
 		}
 
+		//MVP 1.0 -- Recursive (Titled Modified for MVP 2.0)
 		insertHelper(pElement, node)
 		{
 
@@ -146,6 +171,7 @@
 			return undefined;
 		}
 
+		//MVP 2.0
 		searchHelper(pElement, node)
 		{
 			
@@ -171,6 +197,7 @@
 			return undefined;
 		}
 
+		//MVP 2.0
 		deleteHelper(pElement, node)
 		{
 			if (node == null)  return node; 
@@ -203,6 +230,7 @@
 	        return node; 
 		}
 
+		//MVP 2.0
 		minValue(node)
 		{
 			var minv = node.element; 
@@ -214,6 +242,7 @@
 	        return minv; 
 		}	
 
+		//MVP 2.0
 		upDownUpdate(node)
 		{
 			// alert(node.getElement());
@@ -259,6 +288,7 @@
 			}
 		}
 
+		//MVP 1.0 - Title updated for MVP 2.0.
 		inorderListingHelp(pList, node)
 		{
 			if(node.leftNode != undefined)
@@ -275,15 +305,17 @@
 		}
 	}
 
+	//MVP 1.0
 	var BST = new Tree();
 
+	//MVP 1.0
 	var nodes = new vis.DataSet([]);
 	var edges = new vis.DataSet([]);
 
-	// create a network
+	//MVP 1.0 - Create Network
 	var container = document.getElementById('mynetwork');
 
-	// provide the data in the vis format
+	//MVP 1.0 - provide data to network
 	var data = {
 	    nodes: nodes,
 	    edges: edges
@@ -306,9 +338,10 @@
 		}
 	};
 
-	// initialize your network!
+	//MVP 1.0 - Initialize Network
 	var network = new vis.Network(container, data, options);
 
+	//MVP 1.0 - Removed in MVP 2.0
 	// function insert()
 	// {
 	//    	var numText = prompt("Please enter a number: ", "0");
@@ -323,6 +356,7 @@
 	//    	BST.searchElement(pElement);
 	// }
 
+	//MVP 1.0 - Updated for MVP 2.0.
 	function execute()
 	{
 		BST.buildVis();
@@ -335,6 +369,7 @@
 		};
 	}
 
+	//MVP 1.0
 	function reset()
 	{
 		BST = new Tree();
@@ -521,7 +556,7 @@
 		    this.setInputsInline(false);
 		    this.setPreviousStatement(true, null);
 		    this.setNextStatement(true, null);
-		    this.setColour(345);
+		    this.setColour(15);
 		    this.setTooltip('');
 		  }
 		};
@@ -544,7 +579,7 @@
 		    this.setInputsInline(false);
 		    this.setPreviousStatement(true, null);
 		    this.setNextStatement(true, null);
-		    this.setColour(345);
+		    this.setColour(15);
 		    this.setTooltip('');
 		  }
 		};
@@ -602,7 +637,7 @@
 		        .appendField("Root Node");
 		    this.setInputsInline(false);
 		    this.setOutput(true, "Node");
-		    this.setColour(0);
+		    this.setColour(15);
 		    this.setTooltip('');
 		  }
 		};
@@ -621,7 +656,7 @@
 		        .setCheck("Node")
 		        .appendField("Get Node");
 		    this.setOutput(true, "Number");
-		    this.setColour(230);
+		    this.setColour(200);
 		 this.setTooltip("");
 		 this.setHelpUrl("");
 		  }
@@ -644,7 +679,7 @@
 		        .setCheck(null)
 		        .appendField("Get Node's Element");
 		    this.setOutput(true, "Number");
-		    this.setColour(230);
+		    this.setColour(200);
 		 this.setTooltip("");
 		 this.setHelpUrl("");
 		  }
@@ -666,7 +701,7 @@
 		        .setCheck(null)
 		        .appendField("Get Node's Right Node");
 		    this.setOutput(true, "Node");
-		    this.setColour(230);
+		    this.setColour(200);
 		 this.setTooltip("");
 		 this.setHelpUrl("");
 		  }
@@ -690,7 +725,7 @@
 		        .setCheck(null)
 		        .appendField("Get Node's Left Node");
 		    this.setOutput(true, "Node");
-		    this.setColour(230);
+		    this.setColour(200);
 		 this.setTooltip("");
 		 this.setHelpUrl("");
 		  }
@@ -875,7 +910,7 @@
 		        .setCheck(null)
 		        .appendField("Has this Node a Right Node?");
 		    this.setOutput(true, "Boolean");
-		    this.setColour(230);
+		    this.setColour(260);
 		 this.setTooltip("");
 		 this.setHelpUrl("");
 		  }
@@ -896,7 +931,7 @@
 		        .setCheck(null)
 		        .appendField("Has this Node a Left Node?");
 		    this.setOutput(true, "Boolean");
-		    this.setColour(230);
+		    this.setColour(260);
 		 this.setTooltip("");
 		 this.setHelpUrl("");
 		  }
@@ -917,7 +952,7 @@
 		        .setCheck("Number")
 		        .appendField("New Node with element:");
 		    this.setOutput(true, "Node");
-		    this.setColour(260);
+		    this.setColour(230);
 		    this.setTooltip('');
 		    this.setHelpUrl('http://www.example.com/');
 		  }
