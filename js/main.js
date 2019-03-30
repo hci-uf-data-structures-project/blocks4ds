@@ -491,6 +491,26 @@
 			return code;
 		};
 
+		/*---------------Minimum Value Integration------------------------*/
+		Blockly.Blocks['minValueIntegration'] = {
+		  init: function() {
+		    this.appendValueInput("pNode")
+		        .setCheck("Node")
+		        .appendField("Get Minimum Element");
+		    this.setOutput(true, "Number");
+		    this.setInputsInline(false);
+		    this.setColour(345);
+		    this.setTooltip('');
+		  }
+		};
+
+		Blockly.JavaScript['minValueIntegration'] = function(block) {
+		    var pNode = Blockly.JavaScript.valueToCode(block, 'pNode', Blockly.JavaScript.ORDER_ATOMIC);
+		 	var code = 'BST.minValue(' + pNode +')';
+		 	// alert(code);
+			return [code, Blockly.JavaScript.ORDER_NONE];
+		};
+
 
 		/*---------------Create Root-------------------------------*/
 		Blockly.Blocks['new_root'] = {
