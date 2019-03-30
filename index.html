@@ -96,6 +96,7 @@
 				<category name="Tree Root">
 					<block type="get_root"></block>
 					<block type="new_root"></block>
+					<block type="set_root"></block>
 					<block type="root_exists"></block>
 					<block type="root_not_exists"></block>
 				</category>
@@ -114,16 +115,16 @@
 			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
 					</block>
 					<block editable="false" type="procedures_defnoreturn">
-						<field name="NAME">REMOVE</field>
+						<field name="NAME">SEARCH</field>
 						<mutation>
-					      <arg name="element" varid="elementToRemove"></arg>
+					      <arg name="element" varid="elementToSearch"></arg>
 					    </mutation>
 			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
 					</block>
 					<block editable="false" type="procedures_defnoreturn">
-						<field name="NAME">SEARCH</field>
+						<field name="NAME">REMOVE</field>
 						<mutation>
-					      <arg name="element" varid="elementToSearch"></arg>
+					      <arg name="element" varid="elementToRemove"></arg>
 					    </mutation>
 			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
 					</block>
@@ -159,10 +160,11 @@
 					    </mutation>
 			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
 					</block>
-					<block editable="false" type="procedures_defnoreturn">
+					<block editable="false" type="procedures_defreturn">
 						<field name="NAME">RemoveElementFromBlock</field>
 						<mutation>
-							<arg name="node" varid="NodeWillbeRemove"></arg>
+						  <arg name="node" varid="currentNode"></arg>
+					      <arg name="element" varid="newElement"></arg>
 						</mutation>
 						<comment pinned="false" h="80" w="160">Describe this function...</comment>
 					</block>

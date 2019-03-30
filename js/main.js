@@ -23,11 +23,6 @@
 			return this.leftNode;
 		}
 
-		setIsSearch(isSearch)
-		{
-			this.isSearch = isSearch;
-			return this.isSearched;
-		}
 	}
 
 	class Tree
@@ -182,9 +177,9 @@
 	  
 	        /* Otherwise, recur down the tree */
 	        if (pElement < node.element) 
-	            node.leftNode = this.deleteHelper(node.leftNode, pElement); 
+	            node.leftNode = this.deleteHelper(pElement,node.leftNode); 
 	        else if (pElement > node.element) 
-	            node.rightNode = this.deleteHelper(node.rightNode, pElement); 
+	            node.rightNode = this.deleteHelper(pElement, node.rightNode); 
 	  
 	        // if key is same as root's key, then This is the node 
 	        // to be deleted 
@@ -202,7 +197,7 @@
 	            node.element = minValue(node.rightNode); 
 	  
 	            // Delete the inorder successor 
-	            node.rightNode = deleteHelper(node.rightNode, root.element); 
+	            node.rightNode = deleteHelper(node.element, node.rightNode); 
 	        } 
 	  
 	        return node; 
@@ -331,7 +326,6 @@
 	function execute()
 	{
 		BST.buildVis();
-
 		BST = new Tree();
 		nodes = new vis.DataSet([]);
 		edges = new vis.DataSet([]);
@@ -517,6 +511,27 @@
 		  var code = 'BST.root = new Node('+pElement+');\n'+ 
 		  'nodes.update({id: BST.root.element, label: BST.root.element.toString(), size: 200 });\n'+
 		  'edges.update({});\n';
+		  return code;
+		};
+
+		/*---------------Set Root-------------------------------*/
+		Blockly.Blocks['set_root'] = {
+		  init: function() {
+		    this.appendValueInput("node")
+		        .setCheck("Node")
+		        .appendField("Set Root");
+		    this.setInputsInline(false);
+		    this.setPreviousStatement(true, null);
+		    this.setNextStatement(true, null);
+		    this.setColour(345);
+		    this.setTooltip('');
+		  }
+		};
+
+		Blockly.JavaScript['set_root'] = function(block) {
+		  var node = Blockly.JavaScript.valueToCode(block, 'node', Blockly.JavaScript.ORDER_ATOMIC);
+		  // TODO: Assemble JavaScript into code variable.
+		  var code = 'BST.root = ' + node;
 		  return code;
 		};
 
@@ -836,7 +851,7 @@
 		Blockly.JavaScript['find_target_node'] = function(block) {
 		  var node = Blockly.JavaScript.valueToCode(block, 'node', Blockly.JavaScript.ORDER_ATOMIC);
 
-		  var code = node + ".setIsSearch("+ true +")";
+		  var code = node + ".isSearched = true;";
 		  console.log(node.isSearched);
 
 		  return code
