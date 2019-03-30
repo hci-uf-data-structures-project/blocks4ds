@@ -424,12 +424,13 @@
 		}
 	};
 
-	Blockly.JavaScript['root_exists'] = function(block) {
+	Blockly.JavaScript['root_not_exists'] = function(block) {
 		// TODO: Assemble JavaScript into code variable.
 		var code = 'BST.root == undefined';
 		// TODO: Change ORDER_NONE to the correct strength.
 		return [code, Blockly.JavaScript.ORDER_NONE];
 	};
+
 		/*---------------Insert Integration------------------------*/
 		Blockly.Blocks['insertIntegration'] = {
 		  init: function() {
@@ -531,7 +532,7 @@
 		Blockly.JavaScript['set_root'] = function(block) {
 		  var node = Blockly.JavaScript.valueToCode(block, 'node', Blockly.JavaScript.ORDER_ATOMIC);
 		  // TODO: Assemble JavaScript into code variable.
-		  var code = 'BST.root = ' + node;
+		  var code = 'BST.root = ' + node + ";";
 		  return code;
 		};
 
@@ -644,7 +645,7 @@
 		    this.appendValueInput("node")
 		        .setCheck(null)
 		        .appendField("Get Node's Right Node");
-		    this.setOutput(true, "Number");
+		    this.setOutput(true, "Node");
 		    this.setColour(230);
 		 this.setTooltip("");
 		 this.setHelpUrl("");
@@ -668,7 +669,7 @@
 		    this.appendValueInput("node")
 		        .setCheck(null)
 		        .appendField("Get Node's Left Node");
-		    this.setOutput(true, "Number");
+		    this.setOutput(true, "Node");
 		    this.setColour(230);
 		 this.setTooltip("");
 		 this.setHelpUrl("");
@@ -685,6 +686,33 @@
 		  //alert(code);
 		  return [code, Blockly.JavaScript.ORDER_NONE];
 		};
+
+		/*---------------Get Node's Left Node-------------------------------*/
+		Blockly.Blocks['assign_element_to_node'] = {
+		  init: function() {
+		  	this.setPreviousStatement(true, null);
+	    	this.setNextStatement(true, null);
+		    this.appendValueInput('pNode')
+		        .setCheck(null)
+		        .setAlign(Blockly.ALIGN_RIGHT)
+		        .appendField("Assign to");
+		    this.appendValueInput('pElement')
+		        .setCheck("Number")
+		        .appendField("with Value:");
+		    this.setColour(230);
+		 this.setTooltip("");
+		 this.setHelpUrl("");
+		  }
+		};
+
+		Blockly.JavaScript['assign_element_to_node'] = function(block) {
+		  var node = Blockly.JavaScript.valueToCode(block, 'pNode', Blockly.JavaScript.ORDER_NONE);
+		  var value = Blockly.JavaScript.valueToCode(block, 'pElement', Blockly.JavaScript.ORDER_ATOMIC);
+		  var code = node + ".element = " + value + ";"
+
+		  return code;
+		};
+
 
 		/*---------------Assign Right Node to Node-------------------------------*/
 		Blockly.Blocks['assign_right_node'] = {
@@ -711,17 +739,43 @@
 
 		  if(elem == 'element')
 		  {
-		  	code = value_node+'.rightNode = new Node(' + elem + ');\n' +
-					'nodes.update({id: '+elem+', label: '+elem+'.toString(), size: 200 });\n' +
-					'edges.update({from: '+value_node +'.element, to: '+elem+'});\n';
+		  	code = value_node+'.rightNode = new Node(' + elem + ');' 
+					// 'nodes.update({id: '+elem+', label: '+elem+'.toString(), size: 200 });\n' +
+					// 'edges.update({from: '+value_node +'.element, to: '+elem+'});\n';
 		  }
 		  
 		  else
 		  {
-		  	code = value_node+'.rightNode = new Node(' + elem + ');\n' +
-					'nodes.update({id: '+elem+', label: \''+elem+'\', size: 200 });\n' +
-					'edges.update({from: '+value_node +'.element, to: '+elem+'});\n';
+		  	code = value_node+'.rightNode = new Node(' + elem + ');' 
+					// 'nodes.update({id: '+elem+', label: \''+elem+'\', size: 200 });\n' +
+					// 'edges.update({from: '+value_node +'.element, to: '+elem+'});\n';
 		  }
+
+		  return code;
+		};
+
+		/*---------------Assign Right Node to Node-------------------------------*/
+		Blockly.Blocks['assign_right_node_node'] = {
+		  init: function() {
+		  	this.setPreviousStatement(true, null);
+	    	this.setNextStatement(true, null);
+		    this.appendValueInput('pNode')
+		        .setCheck("Node")
+		        .setAlign(Blockly.ALIGN_RIGHT)
+		        .appendField("Assign to");
+		    this.appendValueInput('nNode')
+		        .setCheck("Node")
+		        .appendField("New Right Node :");
+		    this.setColour(230);
+		 this.setTooltip("");
+		 this.setHelpUrl("");
+		  }
+		};
+
+		Blockly.JavaScript['assign_right_node_node'] = function(block) {
+		  var oldNode = Blockly.JavaScript.valueToCode(block, 'pNode', Blockly.JavaScript.ORDER_NONE);
+		  var newNode = Blockly.JavaScript.valueToCode(block, 'nNode', Blockly.JavaScript.ORDER_ATOMIC);
+		  var code = oldNode + ".rightNode = " + newNode + ";"
 
 		  return code;
 		};
@@ -765,6 +819,32 @@
 					'edges.update({from: '+value_node +'.element, to: '+elem+'});\n';
 		  }
 
+		  return code;
+		};
+
+				/*---------------Assign Right Node to Node-------------------------------*/
+		Blockly.Blocks['assign_left_node_node'] = {
+		  init: function() {
+		  	this.setPreviousStatement(true, null);
+	    	this.setNextStatement(true, null);
+		    this.appendValueInput('pNode')
+		        .setCheck("Node")
+		        .setAlign(Blockly.ALIGN_RIGHT)
+		        .appendField("Assign to");
+		    this.appendValueInput('nNode')
+		        .setCheck("Node")
+		        .appendField("New Left Node :");
+		    this.setColour(230);
+		 this.setTooltip("");
+		 this.setHelpUrl("");
+		  }
+		};
+
+		Blockly.JavaScript['assign_left_node_node'] = function(block) {
+		  var oldNode = Blockly.JavaScript.valueToCode(block, 'pNode', Blockly.JavaScript.ORDER_NONE);
+		  var newNode = Blockly.JavaScript.valueToCode(block, 'nNode', Blockly.JavaScript.ORDER_ATOMIC);
+		  var code = oldNode + ".leftNode = " + newNode + ";"
+		  
 		  return code;
 		};
 
@@ -816,7 +896,7 @@
 		    this.appendValueInput("element")
 		        .setCheck("Number")
 		        .appendField("New Node with element:");
-		    this.setOutput(true, null);
+		    this.setOutput(true, "Node");
 		    this.setColour(260);
 		    this.setTooltip('');
 		    this.setHelpUrl('http://www.example.com/');
@@ -827,11 +907,35 @@
 		  var value_element = Blockly.JavaScript.valueToCode(block, 'element', Blockly.JavaScript.ORDER_ATOMIC);
 		  // TODO: Assemble JavaScript into code variable.
 		  var element = parseInt(value_element, 10);
-		  var newNode = new Node(element);
-		  var code = 'return ' + newNode;
+
+		  var code = 'new Node('+element+')' 
 		  // TODO: Change ORDER_NONE to the correct strength.
 		  return [code, Blockly.JavaScript.ORDER_NONE];
 		};
+
+		/*---------------Create New Node-------------------------------*/
+		Blockly.Blocks['isNodeNotExist'] = {
+		  init: function() {
+		    this.appendValueInput("node")
+		        .setCheck("Node")
+		        .appendField("Node not exists?");
+		    // this.setPreviousStatement(true, null);
+		    // this.setNextStatement(true, null);
+		    this.setOutput(true, "Boolean");
+		    this.setColour(260);
+		    this.setTooltip('');
+		    this.setHelpUrl('http://www.example.com/');
+		  }
+		};
+
+		Blockly.JavaScript['isNodeNotExist'] = function(block) {
+		  var node = Blockly.JavaScript.valueToCode(block, 'node', Blockly.JavaScript.ORDER_ATOMIC);
+
+		  var code = node + "== undefined"
+		  // TODO: Change ORDER_NONE to the correct strength.
+		  return [code, Blockly.JavaScript.ORDER_NONE];
+		};
+
 
 		/*---------------find_target_node-------------------------------*/
 

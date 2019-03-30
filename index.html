@@ -55,10 +55,14 @@
 
 		<xml id="toolboxTree" style="display: none">
 			 <category name="Conditionals">
-			 	<block type="math_number"></block>
-			 	<block type="find_target_node"></block>
-			 	<block type="get_root"></block>
 			 	<block type="insertIntegration"></block>
+			 	<block type="math_number"></block>
+			 	<block type="get_root"></block>
+			 	<block type="create_node"></block>
+			 	<block type="assign_left_node_node"></block>
+				<block type="assign_right_node_node"></block>
+				<block type="set_root"></block>
+			 	
 
 			 	<category name="Operations">
 			 		<block type="controls_if"></block>
@@ -71,9 +75,6 @@
 			</category>
 
 			<category name="Variables"  custom="VARIABLE">
-				<!-- <block type="variables_set"> -->
-					<!-- <field name="VAR" id="4A4ev2ODuJzFUOA(Wsy2" variabletype="">returnedNode</field> -->
-				<!-- </block> -->
 
 			</category>
 
@@ -128,18 +129,29 @@
 					    </mutation>
 			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
 					</block>
+					<block editable="false" type="procedures_defreturn">
+						<field name="NAME">MINIMUM VALUE</field>
+						<mutation>
+					      <arg name="element" varid="newElement"></arg>
+					    </mutation>
+			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
+					</block>
 				</category>
 				<category name="Actions on Nodes">
 					<block type="get_node"></block>
 					<block type="get_node_element"></block>
 					<block type="get_node_right"></block>
 					<block type="get_node_left"></block>
+					<block type="assign_element_to_node"></block>
 					<block type="assign_right_node"></block>
+					<block type="assign_right_node_node"></block>
 					<block type="assign_left_node"></block>
+					<block type="assign_left_node_node"></block>
 					<block type="change_color_of_node"></block>
 					<block type="node_has_right"></block>
 					<block type="node_has_left"></block>
 					<block type="create_node"></block>
+					<block type="isNodeNotExist"></block>
 					<block type="find_target_node"></block>
 				</category>
 				
@@ -186,7 +198,7 @@
 	    var executeCode = function()
 		{
 	   		var code = Blockly.JavaScript.workspaceToCode(workspace);
-	   		// alert(code);
+	   		alert(code);
 	   		eval(code);
 	   		execute();
 		}
