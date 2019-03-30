@@ -934,7 +934,30 @@
 		};
 
 		/*---------------Create New Node-------------------------------*/
-		Blockly.Blocks['isNodeNotExist'] = {
+		Blockly.Blocks['node_exist'] = {
+		  init: function() {
+		    this.appendValueInput("node")
+		        .setCheck("Node")
+		        .appendField("Node exists?");
+		    // this.setPreviousStatement(true, null);
+		    // this.setNextStatement(true, null);
+		    this.setOutput(true, "Boolean");
+		    this.setColour(260);
+		    this.setTooltip('');
+		    this.setHelpUrl('http://www.example.com/');
+		  }
+		};
+
+		Blockly.JavaScript['node_exist'] = function(block) {
+		  var node = Blockly.JavaScript.valueToCode(block, 'node', Blockly.JavaScript.ORDER_ATOMIC);
+
+		  var code = node + "!= undefined"
+		  // TODO: Change ORDER_NONE to the correct strength.
+		  return [code, Blockly.JavaScript.ORDER_NONE];
+		};
+
+		/*---------------Create New Node-------------------------------*/
+		Blockly.Blocks['node_not_exist'] = {
 		  init: function() {
 		    this.appendValueInput("node")
 		        .setCheck("Node")
@@ -948,7 +971,7 @@
 		  }
 		};
 
-		Blockly.JavaScript['isNodeNotExist'] = function(block) {
+		Blockly.JavaScript['node_not_exist'] = function(block) {
 		  var node = Blockly.JavaScript.valueToCode(block, 'node', Blockly.JavaScript.ORDER_ATOMIC);
 
 		  var code = node + "== undefined"
