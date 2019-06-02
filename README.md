@@ -1,2 +1,2 @@
-# Blocks4DS - Learning Data Structures 
+# Blocks4DS - Data Structures Learning with Blocks!
 HCI project - BST Code
