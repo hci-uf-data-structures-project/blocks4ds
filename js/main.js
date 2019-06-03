@@ -451,7 +451,7 @@
 	Blockly.Blocks['root_not_exists'] = {
 		init: function() {
 			this.appendDummyInput()
-				.appendField("Root does not exists?");
+				.appendField("Root does not exist?");
 			this.setInputsInline(false);
 			this.setOutput(true, "Boolean");
 			this.setColour(15);

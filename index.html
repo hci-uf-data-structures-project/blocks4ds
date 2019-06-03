@@ -1,10 +1,12 @@
+<html>
 	<header>
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<meta charset="UTF-8">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="./libraries/blockly/blockly_compressed.js"></script>
 		<script src="./libraries/blockly/blocks_compressed.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 		<script src="./libraries/blockly/en.js"></script>
 		<script src="./libraries/vis/vis.min.js"></script>
 		<script src="./libraries/blockly/javascript_compressed.js"></script>
@@ -18,24 +20,28 @@
 	            border: 1px solid lightgray;
 	        }
 	    </style>
+
 	</header>
 
 	<body>
 		<div class="container-fluid">
 		<div class="row">
+
 				<div class="col-md-12">
 					<h1>
-						Blocks4Gators - Binary Search Trees
+						<b>Blocks4DS - <i>Data Structures Learning with Blocks!</i></b>
+
 					</h1>
-					<h3>&nbsp</h3>
-					<div class="row">
+					<h3>&nbsp;</h3>
+					<div class="row" style="height: 900px">
+
 						<div class="col-md-7">
 							<div class="btn-group btn-group-lg" role="group">
-								<button class="btn btn-secondary" type="button">
-									Tree Canvas
+								<button class="btn btn-secondary" type="button" onclick="location.reload();">
+									Binary Search Tree
 								</button>
 							</div>
-							<div id="blocklyDivTree" style="height: 75%; width: 100%;"></div>
+							<div id="blocklyDivTree" style="height: 720px"></div>
 						</div>
 						<div class="col-md-5">
 							<!--div id="blocklyDivNode" style="height: 100%; width: 100%;"></div-->
@@ -47,7 +53,7 @@
 									Reset Canvas
 								</button>
 							</div>
-							<div id="mynetwork" ></div>
+							<div id="mynetwork" style="height: 720px"></div>
 						</div>
 				</div>
 			</div>
@@ -58,9 +64,9 @@
 				<!-- MVP 2.0  For Evaluation purposes, let's not give them these blocks-->
 				<category name="Integrated Core Functions">
 						<block type="insertIntegration"></block>
-						<!--block type="searchIntegration"></block>
+						<block type="searchIntegration"></block>
 						<block type="deleteIntegration"></block>
-						<block type="minValueIntegration"></block-->
+						<block type="minValueIntegration"></block>
 					</category>
 				<category name="Functions on Tree">
 					<block editable="false" type="procedures_defnoreturn">
@@ -97,7 +103,7 @@
 				<category name="Functions on Nodes">
 					<!-- MVP 1.0 -->
 					<block editable="false" type="procedures_defnoreturn">
-						<field name="NAME">insertElementToBlock</field>
+						<field name="NAME">insertElementToNode</field>
 						<mutation>
 						  <arg name="node" varid="currentNode"></arg>
 					      <arg name="element" varid="newElement"></arg>
@@ -106,7 +112,7 @@
 					</block>
 					<!-- MVP 2.0 -->
 					<block editable="false" type="procedures_defnoreturn">
-						<field name="NAME">searchElementInBlock</field>
+						<field name="NAME">searchElementInNode</field>
 						<mutation>
 						  <arg name="node" varid="currentNode"></arg>
 					      <arg name="element" varid="newElement"></arg>
@@ -115,7 +121,7 @@
 					</block>
 					<!-- MVP 2.0 -->
 					<block editable="false" type="procedures_defreturn">
-						<field name="NAME">RemoveElementFromBlock</field>
+						<field name="NAME">RemoveElementFromNode</field>
 						<mutation>
 						  <arg name="node" varid="currentNode"></arg>
 					      <arg name="element" varid="newElement"></arg>
@@ -199,7 +205,6 @@
 					<block type="no_block"></block>
 				</category>
 			</category>
-			</category>
 
 			<!-- MVP 1.0 -->
 			<category name="Input and Output">
@@ -229,3 +234,4 @@
 		}
 	</script>
 	<script src="./js/main.js"></script>
+</html>
