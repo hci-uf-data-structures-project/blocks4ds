@@ -1,0 +1,231 @@
+	<header>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<script src="./libraries/blockly/blockly_compressed.js"></script>
+		<script src="./libraries/blockly/blocks_compressed.js"></script>
+		<script src="./libraries/blockly/en.js"></script>
+		<script src="./libraries/vis/vis.min.js"></script>
+		<script src="./libraries/blockly/javascript_compressed.js"></script>
+		<script src="./libraries/blockly/interpreter.js"></script>
+		<script src="./libraries/blockly/acorn.js"></script>
+		<script src="./libraries/blockly/acorn_interpreter.js"></script>
+		<style type="text/css">
+	        #mynetwork {
+	            width: 100%;
+	            height: 75%;
+	            border: 1px solid lightgray;
+	        }
+	    </style>
+	</header>
+
+	<body>
+		<div class="container-fluid">
+		<div class="row">
+				<div class="col-md-12">
+					<h1>
+						Blocks4Gators - Binary Search Trees
+					</h1>
+					<h3>&nbsp</h3>
+					<div class="row">
+						<div class="col-md-7">
+							<div class="btn-group btn-group-lg" role="group">
+								<button class="btn btn-secondary" type="button">
+									Tree Canvas
+								</button>
+							</div>
+							<div id="blocklyDivTree" style="height: 75%; width: 100%;"></div>
+						</div>
+						<div class="col-md-5">
+							<!--div id="blocklyDivNode" style="height: 100%; width: 100%;"></div-->
+							<div class="btn-group btn-group-lg" role="group">
+								<button class="btn btn-secondary" type="button" onclick="executeCode()">
+									Execute Code
+								</button>
+								<button class="btn btn-secondary" type="button" onclick="reset()">
+									Reset Canvas
+								</button>
+							</div>
+							<div id="mynetwork" ></div>
+						</div>
+				</div>
+			</div>
+		</div>
+
+		<xml id="toolboxTree" style="display: none">
+			<!-- MVP 1.0 -->
+				<!-- MVP 2.0  For Evaluation purposes, let's not give them these blocks-->
+				<category name="Integrated Core Functions">
+						<block type="insertIntegration"></block>
+						<!--block type="searchIntegration"></block>
+						<block type="deleteIntegration"></block>
+						<block type="minValueIntegration"></block-->
+					</category>
+				<category name="Functions on Tree">
+					<block editable="false" type="procedures_defnoreturn">
+						<field name="NAME">INSERT</field>
+						<mutation>
+					      <arg name="element" varid="newElement"></arg>
+					    </mutation>
+			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
+					</block>
+					<block editable="false" type="procedures_defnoreturn">
+						<field name="NAME">SEARCH</field>
+						<mutation>
+					      <arg name="element" varid="elementToSearch"></arg>
+					    </mutation>
+			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
+					</block>
+					<block editable="false" type="procedures_defnoreturn">
+						<field name="NAME">REMOVE</field>
+						<mutation>
+					      <arg name="element" varid="elementToRemove"></arg>
+					    </mutation>
+			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
+					</block>
+					<!-- MVP 2.0 -->
+					<block editable="false" type="procedures_defreturn">
+						<field name="NAME">MINIMUM VALUE</field>
+						<mutation>
+					      <arg name="node" varid="newElement"></arg>
+					    </mutation>
+			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
+					</block>
+				</category>
+				<!-- MVP 1.0 -->
+				<category name="Functions on Nodes">
+					<!-- MVP 1.0 -->
+					<block editable="false" type="procedures_defnoreturn">
+						<field name="NAME">insertElementToBlock</field>
+						<mutation>
+						  <arg name="node" varid="currentNode"></arg>
+					      <arg name="element" varid="newElement"></arg>
+					    </mutation>
+			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
+					</block>
+					<!-- MVP 2.0 -->
+					<block editable="false" type="procedures_defnoreturn">
+						<field name="NAME">searchElementInBlock</field>
+						<mutation>
+						  <arg name="node" varid="currentNode"></arg>
+					      <arg name="element" varid="newElement"></arg>
+					    </mutation>
+			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
+					</block>
+					<!-- MVP 2.0 -->
+					<block editable="false" type="procedures_defreturn">
+						<field name="NAME">RemoveElementFromBlock</field>
+						<mutation>
+						  <arg name="node" varid="currentNode"></arg>
+					      <arg name="element" varid="newElement"></arg>
+						</mutation>
+						<comment pinned="false" h="80" w="160">Describe this function...</comment>
+					</block>
+				</category>
+				<!-- MVP 1.0 -->
+			<category name="Actions on Tree">
+				<!-- MVP 1.0 -->
+				<category name="Number of Elements">
+					<block type="increase_count"></block>
+					<!-- MVP 2.0 -->
+					<block type="decrease_count"></block>
+				</category>
+				<!-- MVP 1.0 -->
+				<category name="Root Node">
+					<block type="get_root"></block>
+					<block type="new_root"></block>
+					<block type="set_root"></block>
+					<block type="root_exists"></block>
+					<block type="root_not_exists"></block>
+				</category>
+				<!-- MVP 2.0 -->
+				<variables>
+					<variable type="" id="newElement">element</variable>
+					<variable type="" id="elementToRemove">element</variable>
+					<variable type="" id="elementToSearch">element</variable>
+					<variable type="" id="currentNode">node</variable>
+				</variables>
+			</category>
+			<category name="Actions on Nodes">
+				<category name="Getting">
+					<block type="get_node"></block>
+					<block type="get_node_element"></block>
+					<block type="get_node_right"></block>
+					<block type="get_node_left"></block>
+					<!-- MVP 2.0 -->
+					<block type="find_target_node"></block>
+				</category>
+				<category name="Assigning and Creating">
+					<block type="assign_element_to_node"></block>
+					<block type="assign_right_node"></block>
+					<block type="assign_right_node_node"></block>
+					<block type="assign_left_node"></block>
+					<block type="assign_left_node_node"></block>
+					<block type="create_node"></block>
+				</category>
+				<category name="Querying">
+					<block type="node_has_right"></block>
+					<block type="node_has_left"></block>
+					<!-- MVP 2.0 -->
+					<block type="node_exist"></block>
+					<!-- MVP 2.0 -->
+					<block type="node_not_exist"></block>
+				</category>
+				<category name="Responding">
+					<!-- MVP 2.0 -->
+					<block type="change_color_of_node"></block>
+				</category>
+			</category>
+			 <category name="Conditionals">
+			 	<!-- MVP 2.0. - Are these same or different blocks from other categories?
+			 	<block type="minValueIntegration"></block>
+			 	<block type="insertIntegration"></block>
+			 	<block type="math_number"></block>
+			 	<block type="get_root"></block>
+			 	<block type="create_node"></block>
+			 	<block type="assign_left_node_node"></block>
+				<block type="assign_right_node_node"></block>
+				<block type="set_root"></block>
+			 	-->
+
+			 	<category name="Operations">
+			 		<block type="controls_if"></block>
+		  			<block type="logic_compare"></block>
+		  			<block type="controls_whileUntil"></block>
+			 	</category>
+			 	<category name= "Responses">
+					<block type="yes_block"></block>
+					<block type="no_block"></block>
+				</category>
+			</category>
+			</category>
+
+			<!-- MVP 1.0 -->
+			<category name="Input and Output">
+				<category name="Numeric">
+					<block type="math_number"></block>
+					<block type="math_arithmetic"></block>
+				</category>
+				<category name="Text">
+					<block type="text"></block>
+					<block type="text_print"></block>
+				</category>
+				<category name="Your Variables"  custom="VARIABLE"></category>
+			</category>
+		</xml>
+		</div>
+	</body>
+
+	<script>
+
+	   var workspace = Blockly.inject('blocklyDivTree', {toolbox: document.getElementById('toolboxTree')});
+	    var executeCode = function()
+		{
+	   		var code = Blockly.JavaScript.workspaceToCode(workspace);
+	   		console.log(code);
+	   		eval(code);
+	   		execute();
+		}
+	</script>
+	<script src="./js/main.js"></script>
