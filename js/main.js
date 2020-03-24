@@ -1053,7 +1053,7 @@
 		}
 	};
 
-	/*
+	
 	Blockly.JavaScript['change_color_of_node'] = function(block) {
 
 		var value_element = Blockly.JavaScript.valueToCode(block, 'node', Blockly.JavaScript.ORDER_ATOMIC);
@@ -1065,4 +1065,4 @@
 		return [code, Blockly.JavaScript.ORDER_NONE];
 
 	};
-	*/
+	
