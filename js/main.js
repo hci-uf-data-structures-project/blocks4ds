@@ -1056,6 +1056,7 @@
 	
 	Blockly.JavaScript['change_color_of_node'] = function(block) {
 
+		/*
 		var value_element = Blockly.JavaScript.valueToCode(block, 'node', Blockly.JavaScript.ORDER_ATOMIC);
 		// TODO: Assemble JavaScript into code variable.
 		var element = parseInt(value_element, 10);
@@ -1063,6 +1064,7 @@
 		var code = 'return ' + newNode;
 		// TODO: Change ORDER_NONE to the correct strength.
 		return [code, Blockly.JavaScript.ORDER_NONE];
+		*/
 
 	};
 	
