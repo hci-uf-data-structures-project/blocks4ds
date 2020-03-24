@@ -1065,6 +1065,8 @@
 		// TODO: Change ORDER_NONE to the correct strength.
 		return [code, Blockly.JavaScript.ORDER_NONE];
 		*/
-
+		
+		var code = 'return True;';
+		return [code, Blockly.JavaScript.ORDER_NONE];
 	};
 	
