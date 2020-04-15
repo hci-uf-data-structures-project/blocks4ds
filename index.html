@@ -106,7 +106,7 @@
 						<field name="NAME">insertElementToNode</field>
 						<mutation>
 						  <arg name="node" varid="currentNode"></arg>
-					      <arg name="element" varid="newElement"></arg>
+					      <arg name="element" varid="newElementNode"></arg>
 					    </mutation>
 			    		<comment pinned="false" h="80" w="160">Describe this function...</comment>
 					</block>
@@ -218,19 +218,194 @@
 				<category name="Your Variables"  custom="VARIABLE"></category>
 			</category>
 		</xml>
+
+		<?xml version="1.0" encoding="UTF-8"?>
+		<xml xmlns="https://developers.google.com/blockly/xml" id="insertTemplate" style="display: none">
+		   <variables>
+		      <variable type="" id="newElement">element</variable>
+		      <variable type="" id="currentNode">node</variable>
+		   </variables>
+		   <block type="procedures_defnoreturn" id="!Oh/l_,rhnXuDSNBF4W/" editable="false" x="-25" y="56">
+		      <mutation>
+		         <arg name="element" varid="newElement" />
+		      </mutation>
+		      <field name="NAME">INSERT</field>
+		      <comment pinned="false" h="80" w="160">Describe this function...</comment>
+		      <statement name="STACK">
+		         <block type="controls_if" id="?0N?TqJkU5$f7h4!)uZ2">
+		            <mutation else="1" />
+		            <value name="IF0">
+		               <block type="root_exists" id="c~0v+tuQ|6-~KFth_IA*" />
+		            </value>
+		            <statement name="ELSE">
+		               <block type="new_root" id="4YU/%Y#f$]/;vbuK)uG*">
+		                  <value name="pElement">
+		                     <block type="variables_get" id="_S[b5.0AmQ?krf:{BntY">
+		                        <field name="VAR" id="newElement" variabletype="">element</field>
+		                     </block>
+		                  </value>
+		               </block>
+		            </statement>
+		         </block>
+		      </statement>
+		   </block>
+		   <block type="procedures_callnoreturn" id="vT[^;y;1RUrOSbq4`Qvi" x="316" y="53">
+		      <mutation name="INSERT">
+		         <arg name="element" />
+		      </mutation>
+		      <value name="ARG0">
+		         <block type="math_number" id="nME{x|W/lPIQ:5iU@VM%">
+		            <field name="NUM">40</field>
+		         </block>
+		      </value>
+		      <next>
+		         <block type="procedures_callnoreturn" id="Uf)H3Te_tj+y_o|`2K({">
+		            <mutation name="INSERT">
+		               <arg name="element" />
+		            </mutation>
+		            <value name="ARG0">
+		               <block type="math_number" id="+cqb0#*h-1@w@smrfaMU">
+		                  <field name="NUM">25</field>
+		               </block>
+		            </value>
+		            <next>
+		               <block type="procedures_callnoreturn" id="35s*WRTOtn*,)G4-Zv;o">
+		                  <mutation name="INSERT">
+		                     <arg name="element" />
+		                  </mutation>
+		                  <value name="ARG0">
+		                     <block type="math_number" id="kS~b2jTB|DtEX|$jX#%c">
+		                        <field name="NUM">60</field>
+		                     </block>
+		                  </value>
+		               </block>
+		            </next>
+		         </block>
+		      </next>
+		   </block>
+		   <block type="procedures_defnoreturn" id="zNZRFxlG*/S8*7icBIUm" editable="false" x="-27" y="216">
+		      <mutation>
+					<arg name="node" varid="currentNode"></arg>
+					<arg name="element" varid="newElementNode"></arg>
+			  </mutation>
+		      <field name="NAME">insertElementToNode</field>
+		      <comment pinned="false" h="80" w="160">Describe this function...</comment>
+		      <statement name="STACK">
+		         <block type="controls_if" id="_R!:pyS.WUPue2t|dKxR">
+		            <mutation else="1" />
+		            <value name="IF0">
+		               <block type="logic_compare" id="^)ly#e;vh;M(]Amr^qc7">
+		                  <field name="OP">GT</field>
+		                  <value name="A">
+		                     <block type="variables_get" id="QWyv#5=H!z~SsBPw1!Oa">
+		                        <field name="VAR" id="newElement" variabletype="">element</field>
+		                     </block>
+		                  </value>
+		                  <value name="B">
+		                     <block type="get_node_element" id="_{{.~UJFH$|aefVNSzY[">
+		                        <value name="node">
+		                           <block type="variables_get" id="C$0W[ze1)vJ9Gi*pF_B)">
+		                              <field name="VAR" id="currentNode" variabletype="">node</field>
+		                           </block>
+		                        </value>
+		                     </block>
+		                  </value>
+		               </block>
+		            </value>
+		            <statement name="DO0">
+		               <block type="controls_if" id="9*.g0bm]kdB%|L{RoY|h">
+		                  <mutation else="1" />
+		                  <value name="IF0">
+		                     <block type="node_has_right" id="wMV(2bpzUXD/c{_~@xP-">
+		                        <value name="node">
+		                           <block type="variables_get" id="*uEyJwLGVAUUW}3LKmch">
+		                              <field name="VAR" id="currentNode" variabletype="">node</field>
+		                           </block>
+		                        </value>
+		                     </block>
+		                  </value>
+		                  <statement name="DO0">
+		                     <block type="procedures_callnoreturn" id=",5W*QYgQR,Z7PFc[~L1A">
+		                        <mutation name="insertElementToNode">
+		                           <arg name="node" />
+		                           <arg name="element" />
+		                        </mutation>
+		                        <value name="ARG0">
+		                           <block type="get_node_right" id="efp:FrKq0QRD[u7%q/Rt">
+		                              <value name="node">
+		                                 <block type="variables_get" id="?)?b1UDoZV$|?Y7L5qE?">
+		                                    <field name="VAR" id="currentNode" variabletype="">node</field>
+		                                 </block>
+		                              </value>
+		                           </block>
+		                        </value>
+		                        <value name="ARG1">
+		                           <block type="variables_get" id=";bHaC`?Sq=,Dphldow^D">
+		                              <field name="VAR" id="newElement" variabletype="">element</field>
+		                           </block>
+		                        </value>
+		                     </block>
+		                  </statement>
+		                  <statement name="ELSE">
+		                     <block type="assign_right_node" id="4?H--H:vG[MsVTm*6@wo">
+		                        <value name="pNode">
+		                           <block type="variables_get" id="ifQJ?e4+dBZr./x#SBaC">
+		                              <field name="VAR" id="currentNode" variabletype="">node</field>
+		                           </block>
+		                        </value>
+		                        <value name="pElement">
+		                           <block type="variables_get" id="?mosl5A+q%PDBSHs}K{(">
+		                              <field name="VAR" id="newElement" variabletype="">element</field>
+		                           </block>
+		                        </value>
+		                     </block>
+		                  </statement>
+		               </block>
+		            </statement>
+		         </block>
+		      </statement>
+		   </block>
+		</xml>
+
+
 		</div>
 	</body>
 
 	<script>
 
-	   var workspace = Blockly.inject('blocklyDivTree', {toolbox: document.getElementById('toolboxTree')});
+	    var workspace = Blockly.inject('blocklyDivTree', 
+	    {
+	    	toolbox: document.getElementById('toolboxTree'),
+	    });
+	    Blockly.Xml.domToWorkspace(document.getElementById('insertTemplate'), workspace);
+
 	    var executeCode = function()
 		{
 	   		var code = Blockly.JavaScript.workspaceToCode(workspace);
-	   		console.log(code);
 	   		eval(code);
 	   		execute();
 		}
+
+		function getXML()
+		{
+			var xml = Blockly.Xml.workspaceToDom(workspace);
+			var xmlText = Blockly.Xml.domToText(xml);
+			download("hello.txt", xmlText);
+		}
+
+		function download(filename, text) {
+		  var element = document.createElement('a');
+		  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+		  element.setAttribute('download', filename);
+
+		  element.style.display = 'none';
+		  document.body.appendChild(element);
+
+		  element.click();
+
+		  document.body.removeChild(element);
+		}
+		
 	</script>
 	<script src="./js/main.js"></script>
 </html>

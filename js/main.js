@@ -68,8 +68,8 @@
 				this.count++;
 
 				//MVP 2.0 - Commented for second MVP.
-				// nodes.update({id: this.root.getElement(), label: this.root.getElement().toString(), size: 200 });
-				// edges.update({});
+				nodes.update({id: this.root.getElement(), label: this.root.getElement().toString(), size: 200 });
+				edges.update({});
 			}
 			else
 			{
